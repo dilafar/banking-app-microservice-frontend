@@ -32,6 +32,10 @@ const saveloan = async (mobileNumber) => {
 
 const updateLoans = async (loan) => {
   try {
+      console.log(loan.amountPaid)
+      loan.amountPaid = Number(loan.amountPaid);
+      console.log(loan);
+      console.log("api request....")
       const response = await apiInstance.put(`/loans/api/update`, loan);
       return response.data; 
   } catch (err) {

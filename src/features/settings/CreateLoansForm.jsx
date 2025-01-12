@@ -4,7 +4,6 @@ import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import { useForm } from "react-hook-form";
 import FormRow from "../../ui/FormRow";
-import { useCreateLoan } from "../../hooks/loans/useCreateLoans";
 import { useUpdateLoan } from "../../hooks/loans/useUpdateLoans";
 
 function CreateLoansForm({cabinToEdit = {},onCloseModel}) {
@@ -17,7 +16,6 @@ function CreateLoansForm({cabinToEdit = {},onCloseModel}) {
   const { errors } = formState;
   console.log(errors);
 
-  const {createLoan , isCreating} = useCreateLoan();
   const {updateLoan } = useUpdateLoan();
 
   
@@ -31,16 +29,7 @@ function CreateLoansForm({cabinToEdit = {},onCloseModel}) {
           onCloseModel?.();
         } 
       })
-    }else{
-      createLoan(data,{
-        onSuccess: (data) =>{
-          console.log(data);
-          reset();
-          onCloseModel?.();
-        } 
-      });
     }
-   // mutate(data);
    console.log(data);
   }
 
@@ -102,16 +91,13 @@ function CreateLoansForm({cabinToEdit = {},onCloseModel}) {
             />
           </FormRow>
 
-          <FormRow label="AmountPaid" error={errors?.amountPaid?.message}>
+          <FormRow label="AmountPaid">
             <Input
               type="number"
               id="amountPaid"
               {...register("amountPaid", {
                 required: "This field is required",
-                min: {
-                  value: 1,
-                  message: "Capacity should be at least 1",
-                },
+              
               })}
             />
           </FormRow>
@@ -137,7 +123,7 @@ function CreateLoansForm({cabinToEdit = {},onCloseModel}) {
         <Button variation="secondary" type="reset" onClick={() => onCloseModel?.()}>
           Cancel
         </Button>
-        <Button disabled={isCreating}>
+        <Button >
           {isEditSession ? "Edit Loan": "Create new Loan"}</Button>
       </FormRow>
     </Form>

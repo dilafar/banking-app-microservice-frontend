@@ -4,10 +4,16 @@ import Empty from '../../ui/Empty';
 import Table from '../../ui/Table';
 import Menus from '../../ui/Menus';
 import LoansRow  from "./LoansRow"
+import { useAccounts } from '../../hooks/accounts/useAccounts';
+import { useCards } from '../../hooks/cards/useCards';
 
 
 function LoansTable() {
   const {isLoading, loans} = useLoans();
+  const {users} = useAccounts();
+  console.log(users);
+  const {cards} = useCards();
+  console.log(cards);
   if (isLoading) return <Spinner />;
   if (!loans.length) return <Empty  resourceName="loans" />;
 
